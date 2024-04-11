@@ -1,6 +1,9 @@
 package com.example.notes.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 sealed class NavRoute(val route: String) {
     object Start: NavRoute("start_screen")
@@ -11,4 +14,9 @@ sealed class NavRoute(val route: String) {
 
 @Composable
 fun NotesNavHost() {
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = NavRoute.Start.route) {
+        composable(NavRoute.Start.route) {}
+    }
 }
