@@ -25,8 +25,10 @@ import com.example.notes.ui.theme.NoTeSTheme
 
 @Composable
 fun AddScreen(navController: NavHostController) {
+
     var title by remember {mutableStateOf("")}
     var subtitle by remember {mutableStateOf("")}
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
