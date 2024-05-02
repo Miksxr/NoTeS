@@ -1,6 +1,5 @@
 package com.example.notes.screens
 
-import android.app.Application
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,7 +24,7 @@ import com.example.notes.utils.TYPE_FIREBASE
 import com.example.notes.utils.TYPE_ROOM
 
 @Composable
-fun StartScreen(navController: NavHostController) {
+fun StartScreen(navController: NavHostController, viewModel: ViewModel) {
 
     val context = LocalContext.current
     val mViewModel: ViewModel =
@@ -43,8 +42,9 @@ fun StartScreen(navController: NavHostController) {
         ) {
             Text(text = "Выбери вид хранения данных!")
             Button(onClick = {
-                mViewModel.initDatabase(TYPE_ROOM)
-                navController.navigate(route = NavRoute.Main.route)
+                mViewModel.initDatabase(TYPE_ROOM) {
+                    navController.navigate(route = NavRoute.Main.route)
+                }
             },
                 modifier = Modifier
                     .width(200.dp)
@@ -53,8 +53,9 @@ fun StartScreen(navController: NavHostController) {
                 Text(text = "Room database")
             }
             Button(onClick = {
-                mViewModel.initDatabase(TYPE_FIREBASE)
-                navController.navigate(route = NavRoute.Main.route)
+                mViewModel.initDatabase(TYPE_FIREBASE) {
+                    navController.navigate(route = NavRoute.Main.route)
+                }
             },
                 modifier = Modifier
                     .width(200.dp)
@@ -70,6 +71,9 @@ fun StartScreen(navController: NavHostController) {
 @Composable
 fun prevStartScreen() {
     NoTeSTheme {
-        StartScreen(navController = rememberNavController())
+        val context = LocalContext.current
+        val mViewModel: ViewModel =
+            viewModel()
+        StartScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 }
