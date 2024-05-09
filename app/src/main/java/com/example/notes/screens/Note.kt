@@ -1,5 +1,6 @@
 package com.example.notes.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,14 +26,18 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.notes.R
 import com.example.notes.ViewModel
 import com.example.notes.model.Note
 import com.example.notes.navigation.NavRoute
@@ -60,6 +65,13 @@ fun NoteScreen(navController: NavHostController, viewModel: ViewModel, noteId: S
     var title by remember { mutableStateOf(EMPTY) }
     var subtitle by remember { mutableStateOf(EMPTY) }
 
+    Image(
+        painter = painterResource(id = R.drawable.back3),
+        contentDescription = null,
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.FillBounds
+    )
+
     if (bottomSheetState.isVisible) {
         ModalBottomSheet(
             onDismissRequest = {  },
@@ -67,6 +79,7 @@ fun NoteScreen(navController: NavHostController, viewModel: ViewModel, noteId: S
             content = {
 
         Surface {
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -109,34 +122,51 @@ fun NoteScreen(navController: NavHostController, viewModel: ViewModel, noteId: S
 
     } else {
 
-        Column(
+        Image(
+            painter = painterResource(id = R.drawable.back3),
+            contentDescription = null,
             modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 125.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+
+            Text(
+                text = "Просмотр заметки",
+                fontSize = 26.sp,
+                fontWeight = FontWeight.Bold,
+            )
+
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(32.dp)
+                    .padding(20.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Column(
-                        modifier = Modifier.padding(vertical = 8.dp),
+                        modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            modifier = Modifier.padding(top = 32.dp),
+                            modifier = Modifier.padding(top = 10.dp),
                             text = note.title,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold
+                            fontSize = 32.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center
                         )
                         Text(
-                            modifier = Modifier.padding(top = 16.dp),
+                            modifier = Modifier.padding(bottom = 10.dp),
                             text = note.subtitle,
-                            fontSize = 18.sp,
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.Light
                         )
                     }
@@ -145,7 +175,7 @@ fun NoteScreen(navController: NavHostController, viewModel: ViewModel, noteId: S
 
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 32.dp)
+                    .padding(horizontal = 20.dp)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround
@@ -157,25 +187,34 @@ fun NoteScreen(navController: NavHostController, viewModel: ViewModel, noteId: S
                         bottomSheetState.show()
                     }
                 }) {
-                    Text(text = UPDATE)
+                    Text(
+                        fontSize = 20.sp,
+                        text = UPDATE
+                    )
                 }
                 Button(onClick = {
                     viewModel.deleteNote(note = note) {
                         navController.navigate(NavRoute.Main.route)
                     }
                 }) {
-                    Text(text = DELETE)
+                    Text(
+                        fontSize = 20.sp,
+                        text = DELETE
+                    )
                 }
             }
             Button(
                 modifier = Modifier
-                    .padding(top = 16.dp)
-                    .padding(horizontal = 32.dp)
+                    .padding(top = 20.dp)
+                    .padding(horizontal = 50.dp)
                     .fillMaxWidth(),
                 onClick = {
                     navController.navigate(NavRoute.Main.route)
                 }) {
-                Text(text = NAV_BACK)
+                Text(
+                    fontSize = 20.sp,
+                    text = NAV_BACK
+                )
             }
         }
     }

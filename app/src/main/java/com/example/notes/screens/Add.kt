@@ -1,5 +1,6 @@
 package com.example.notes.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +15,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.notes.R
 import com.example.notes.ViewModel
 import com.example.notes.model.Note
 import com.example.notes.navigation.NavRoute
@@ -38,15 +42,25 @@ fun AddScreen(navController: NavHostController, viewModel: ViewModel) {
     var subtitle by remember {mutableStateOf("")}
     var isButtonEnabled by remember { mutableStateOf(false) }
 
-    Column(
+    Image(
+        painter = painterResource(id = R.drawable.back3),
+        contentDescription = null,
         modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.FillBounds
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 125.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
         Text(
             modifier = Modifier.padding(vertical = 8.dp),
             text = ADD_NEW_NOTE,
-            fontSize = 18.sp,
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold
         )
         OutlinedTextField(
@@ -68,7 +82,7 @@ fun AddScreen(navController: NavHostController, viewModel: ViewModel) {
             isError = subtitle.isEmpty()
         )
         Button(
-            modifier = Modifier.padding(top = 16.dp),
+            modifier = Modifier.padding(top = 20.dp),
             enabled = isButtonEnabled,
             onClick = {
                 viewModel.addNote(note = Note(title = title, subtitle = subtitle)) {
@@ -76,7 +90,10 @@ fun AddScreen(navController: NavHostController, viewModel: ViewModel) {
                 }
             }
         ) {
-            Text(text = ADD_NOTE)
+            Text(
+                fontSize = 20.sp,
+                text = ADD_NOTE
+            )
         }
     }
 }
