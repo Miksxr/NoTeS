@@ -26,6 +26,10 @@ import com.example.notes.ViewModel
 import com.example.notes.model.Note
 import com.example.notes.navigation.NavRoute
 import com.example.notes.ui.theme.NoTeSTheme
+import com.example.notes.utils.Contants.Keys.ADD_NEW_NOTE
+import com.example.notes.utils.Contants.Keys.ADD_NOTE
+import com.example.notes.utils.Contants.Keys.NOTE_SUBTITLE
+import com.example.notes.utils.Contants.Keys.NOTE_TITLE
 
 @Composable
 fun AddScreen(navController: NavHostController, viewModel: ViewModel) {
@@ -41,7 +45,7 @@ fun AddScreen(navController: NavHostController, viewModel: ViewModel) {
     ) {
         Text(
             modifier = Modifier.padding(vertical = 8.dp),
-            text = "Add new note",
+            text = ADD_NEW_NOTE,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
@@ -51,7 +55,7 @@ fun AddScreen(navController: NavHostController, viewModel: ViewModel) {
                 title = it
                 isButtonEnabled = title.isNotEmpty() && subtitle.isNotEmpty()
                             },
-            label = { Text(text = "Note title") },
+            label = { Text(text = NOTE_TITLE) },
             isError = title.isEmpty()
         )
         OutlinedTextField(
@@ -60,7 +64,7 @@ fun AddScreen(navController: NavHostController, viewModel: ViewModel) {
                 subtitle = it
                 isButtonEnabled = title.isNotEmpty() && subtitle.isNotEmpty()
                             },
-            label = { Text(text = "Note subtitle") },
+            label = { Text(text = NOTE_SUBTITLE) },
             isError = subtitle.isEmpty()
         )
         Button(
@@ -72,7 +76,7 @@ fun AddScreen(navController: NavHostController, viewModel: ViewModel) {
                 }
             }
         ) {
-            Text(text = "Add note")
+            Text(text = ADD_NOTE)
         }
     }
 }
